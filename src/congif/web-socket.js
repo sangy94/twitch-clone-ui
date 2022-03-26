@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
-let STRAPI_ENDPOINT;
+let END_POINT;
 
-STRAPI_ENDPOINT = 'http://localhost:3005';
+END_POINT = 'http://localhost:3005';
 
-export const socket = io(STRAPI_ENDPOINT);
+export const socket = io(END_POINT, { transports : ['websocket'] });

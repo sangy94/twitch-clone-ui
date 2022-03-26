@@ -13,6 +13,11 @@ function JoinScreen(props) {
         setUsername(inputValue);
     }
 
+    const onRoomChange = (e) => {
+        const roomNo = e.target.value;
+        setRoom(roomNo);
+    }
+
     socket.on('welcome', (data) => {
         console.log("Welcome event inside Join screen", data);
         props.onJoinSuccess(data);
@@ -45,16 +50,16 @@ function JoinScreen(props) {
                     onChange={onUsernameChange}
                 />
             </label>
-            {/* <label htmlFor="room">
+            <label htmlFor="room">
                 Enter room number of your choice
                 <Input
                     name="room"
                     placeholder="Enter your room number"
                     maxLength={25}
                     value={room}
-                    // onChange={onRoomChange}
+                    onChange={onRoomChange}
                 />
-            </label> */}
+            </label>
             <StyledButton 
                 type="primary" 
                 size={"large"}
