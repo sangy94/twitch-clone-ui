@@ -1,23 +1,42 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
+import { Route, Switch, Redirect } from "react-router-dom";
+import JoinScreen from './screens/joinScreen/joinScreen';
+import ChatRoom from './screens/chatRoom/chatRoom';
+import { history } from '../src/congif/network';
 
 function App() {
+  const [username, setUsername] = useState('');
+  const [room, setRoom] = useState('');
+  const [joinData, setJoinData] = useState({});
+
+  function onJoinSuccess(data) {
+    setJoinData(data);
+    setUsername(data.userData.username);
+    setRoom(data.userData.room);
+    history.push(`/chat/rooms/${data.userData.room}`);
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+        <Route
+          path="/join"
+          component={() => <JoinScreen onJoinSuccess={onJoinSuccess} />} />
+        <Redirect
+          from="/"
+          to="/join"
+          exact />
+        <Route
+          path="/chat/rooms/:roomNumber"
+          component={() =>
+            <ChatRoom
+              username={username}
+              room={room}
+              joinData={joinData} />
+          }
+        />
+      </Switch>
     </div>
   );
 }

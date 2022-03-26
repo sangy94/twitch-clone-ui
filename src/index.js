@@ -1,17 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import 'antd/dist/antd.css';
+import 'font-awesome/css/font-awesome.min.css';
+import { Router, Route } from 'react-router-dom';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { history } from '../src/congif/network';
 
+const router = (
+  <Router history={history}>
+      <Route component={App}/>
+  </Router>
+)
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      {router}
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
