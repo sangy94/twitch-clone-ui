@@ -19,7 +19,6 @@ function JoinScreen(props) {
     }
 
     socket.on('welcome', (data) => {
-        console.log("Welcome event inside Join screen", data);
         props.onJoinSuccess(data);
     });
 
