@@ -4,6 +4,7 @@ import { socket } from '../../congif/web-socket';
 import Header from '../../components/header/header';
 import Messages from '../../components/messages/messages';
 import { history } from '../../congif/network';
+import List from '../../components/list/list';
 import {
     ChatContainer,
     StyledContainer,
@@ -24,6 +25,9 @@ function ChatRoom(props) {
             setMessages([joinData])
             socket.on('message', (message, error) => {
                 setMessages(msgs => [...msgs, message]);
+            });
+            socket.on("roomInfo", (users) => {
+                setUsers(users);
             });
         }
         else {
@@ -77,6 +81,7 @@ function ChatRoom(props) {
                         </SendIcon>
                     </StyledButton>
                 </ChatBox>
+                <List users={users.users}/>
             </StyledContainer>
         </ChatContainer>
     )
